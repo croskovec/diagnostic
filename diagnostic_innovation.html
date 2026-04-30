@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auto-diagnostic Innovation — Structuration de l'innovation</title>
+  <meta name="description" content="Évaluez le niveau de maturité de votre organisation en matière d'innovation en 5 dimensions clés." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-50: #E6F1FB;
+      --blue-200: #85B7EB;
+      --blue-400: #378ADD;
+      --blue-600: #185FA5;
+      --blue-800: #0C447C;
+      --green-50: #EAF3DE;
+      --green-200: #C0DD97;
+      --green-600: #3B6D11;
+      --green-800: #27500A;
+      --green-900: #173404;
+      --amber-50: #FAEEDA;
+      --amber-800: #633806;
+      --red-50: #FCEBEB;
+      --red-400: #E24B4A;
+      --red-800: #501313;
+      --pink-100: #F4C0D1;
+      --pink-800: #72243E;
+      --amber-100: #FAC775;
+      --teal-100: #9FE1CB;
+      --teal-800: #085041;
+      --purple-100: #CECBF6;
+      --purple-800: #3C3489;
+      --gray-100: #F5F5F5;
+      --gray-200: #E8E8E8;
+      --gray-300: #D0D0D0;
+      --gray-500: #888;
+      --gray-700: #444;
+      --gray-900: #1a1a1a;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #F4F6F9;
+      color: var(--gray-900);
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+      line-height: 1.6;
+    }
+
+    .page-wrap {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .logo-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--blue-50);
+      color: var(--blue-800);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .logo-pill svg { width: 14px; height: 14px; flex-shrink: 0; }
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+    .subtitle {
+      font-size: 15px;
+      color: var(--gray-500);
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* CONFIDENTIALITY */
+    .confidentiality-box {
+      background: var(--green-50);
+      border: 1px solid var(--green-200);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .conf-icon {
+      width: 34px;
+      height: 34px;
+      background: var(--green-200);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .conf-icon svg { width: 16px; height: 16px; }
+    .conf-text { font-size: 13px; color: var(--green-800); line-height: 1.6; }
+    .conf-text strong { font-weight: 600; display: block; margin-bottom: 2px; color: var(--green-900); }
+
+    /* PROGRESS */
+    .progress-bar-wrap {
+      margin-bottom: 1.5rem;
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--gray-200);
+    }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-bottom: 8px;
+    }
+    .progress-track {
+      height: 6px;
+      background: var(--gray-200);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue-400), var(--blue-600));
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+
+    /* CARDS */
+    .section-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .section-badge {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .badge-identity { background: var(--blue-50); color: var(--blue-800); }
+    .badge-culture  { background: var(--pink-100); color: var(--pink-800); }
+    .badge-ideation { background: var(--amber-100); color: var(--amber-800); }
+    .badge-decision { background: var(--blue-50); color: var(--blue-800); }
+    .badge-projet   { background: var(--teal-100); color: var(--teal-800); }
+    .badge-valeur   { background: var(--purple-100); color: var(--purple-800); }
+
+    .section-title { font-size: 15px; font-weight: 600; color: var(--gray-900); }
+    .section-count { font-size: 12px; color: var(--gray-500); margin-left: auto; }
+
+    /* FORM FIELDS */
+    .field-group { margin-bottom: 1rem; }
+    .field-group:last-child { margin-bottom: 0; }
+    .field-label { font-size: 13px; color: var(--gray-700); font-weight: 500; margin-bottom: 5px; display: block; }
+    .field-label .req { color: #D85A30; margin-left: 2px; }
+    input[type="text"], input[type="email"] {
+      width: 100%;
+      font-size: 14px;
+      padding: 0 12px;
+      height: 38px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--gray-300);
+      background: white;
+      color: var(--gray-900);
+      transition: border-color 0.15s;
+      font-family: inherit;
+    }
+    input[type="text"]:focus, input[type="email"]:focus {
+      outline: none;
+      border-color: var(--blue-400);
+      box-shadow: 0 0 0 3px rgba(55,138,221,0.12);
+    }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* QUESTIONS */
+    .question-item { margin-bottom: 1.25rem; }
+    .question-item:last-child { margin-bottom: 0; }
+    .question-text { font-size: 13px; color: var(--gray-900); line-height: 1.55; margin-bottom: 8px; }
+    .question-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      background: var(--gray-100);
+      border-radius: 50%;
+      font-size: 11px;
+      color: var(--gray-500);
+      font-weight: 600;
+      margin-right: 6px;
+      flex-shrink: 0;
+      vertical-align: middle;
+    }
+    .options-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .option-btn {
+      flex: 1;
+      min-width: 130px;
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--gray-300);
+      background: white;
+      color: var(--gray-700);
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+      line-height: 1.4;
+    }
+    .option-btn:hover { background: var(--gray-100); border-color: var(--gray-500); }
+    .option-btn.selected {
+      background: var(--blue-50);
+      border-color: var(--blue-200);
+      color: var(--blue-800);
+      font-weight: 600;
+    }
+
+    /* SUBMIT */
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--blue-600);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 16px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-top: 0.5rem;
+      letter-spacing: 0.01em;
+    }
+    .submit-btn:hover:not(:disabled) { background: var(--blue-800); }
+    .submit-btn:disabled {
+      background: var(--gray-200);
+      color: var(--gray-500);
+      cursor: not-allowed;
+    }
+
+    /* SUCCESS */
+    .success-wrap {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 3rem 2rem;
+      text-align: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .success-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--green-50);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.2rem;
+    }
+    .success-icon svg { width: 30px; height: 30px; }
+    .success-wrap h2 { font-size: 20px; font-weight: 700; margin-bottom: 0.5rem; }
+    .success-wrap .sent-to { font-size: 14px; color: var(--gray-500); margin-bottom: 1.75rem; }
+    .success-wrap .sent-to strong { color: var(--gray-900); }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+    }
+    .score-card {
+      border-radius: var(--radius-md);
+      padding: 14px 10px;
+      text-align: center;
+    }
+    .sc-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; opacity: 0.75; }
+    .sc-val { font-size: 22px; font-weight: 700; }
+    .global-score-line { font-size: 14px; color: var(--gray-500); }
+    .global-score-line strong { font-size: 20px; font-weight: 700; }
+
+    .restart-btn {
+      margin-top: 1.5rem;
+      background: none;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--radius-md);
+      padding: 9px 20px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--gray-700);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .restart-btn:hover { background: var(--gray-100); }
+
+    /* FOOTER */
+    .page-footer {
+      text-align: center;
+      margin-top: 2.5rem;
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    @media (max-width: 500px) {
+      h1 { font-size: 20px; }
+      .field-row { grid-template-columns: 1fr; }
+      .score-grid { grid-template-columns: 1fr 1fr; }
+      body { padding: 1rem 0.75rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="header">
+    <div class="logo-pill">
+      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="8" cy="8" r="7" stroke="#0C447C" stroke-width="1.5"/>
+        <path d="M5 8l2 2 4-4" stroke="#0C447C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Diagnostic Innovation
+    </div>
+    <h1>Auto-diagnostic de structuration de l'innovation</h1>
+    <p class="subtitle">Évaluez le niveau de maturité de votre organisation en matière d'innovation selon 5 dimensions clés.</p>
+  </div>
+
+  <div id="form-view">
+
+    <div class="confidentiality-box">
+      <div class="conf-icon">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="7" width="10" height="8" rx="1.5" stroke="#27500A" stroke-width="1.3"/>
+          <path d="M5.5 7V5a2.5 2.5 0 015 0v2" stroke="#27500A" stroke-width="1.3" stroke-linecap="round"/>
+          <circle cx="8" cy="11" r="1" fill="#27500A"/>
+        </svg>
+      </div>
+      <div class="conf-text">
+        <strong>Vos réponses sont strictement confidentielles</strong>
+        Ce questionnaire est utilisé à titre de diagnostic interne uniquement. Vos données ne seront ni partagées, ni revendues à des tiers. Les résultats vous seront communiqués à l'adresse email indiquée ci-dessous.
+      </div>
+    </div>
+
+    <div class="progress-bar-wrap">
+      <div class="progress-meta">
+        <span>Progression</span>
+        <span id="progress-label">0 / 46 réponses</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- IDENTITY -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-badge badge-identity">
+          <svg viewBox="0 0 14 14" fill="none" width="16" height="16">
+            <circle cx="7" cy="5" r="2.5" stroke="#0C447C" stroke-width="1.2"/>
+            <path d="M2 12c0-2.761 2.239-5 5-5s5 2.239 5 5" stroke="#0C447C" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="section-title">Votre identification</div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Nom de l'entreprise <span class="req">*</span></label>
+        <input type="text" id="f-company" placeholder="Acme SAS" />
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Votre nom <span class="req">*</span></label>
+          <input type="text" id="f-name" placeholder="Prénom Nom" />
+        </div>
+        <div class="field-group">
+          <label class="field-label">Votre fonction <span class="req">*</span></label>
+          <input type="text" id="f-role" placeholder="ex. Responsable R&D" />
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Email pour recevoir le diagnostic <span class="req">*</span></label>
+        <input type="email" id="f-email" placeholder="vous@entreprise.fr" />
+      </div>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-badge badge-culture">1</div>
+        <div class="section-title">Culture et stratégie</div>
+        <div class="section-count">12 questions</div>
+      </div>
+      <div id="qs-culture"></div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-badge badge-ideation">2</div>
+        <div class="section-title">Idéation</div>
+        <div class="section-count">7 questions</div>
+      </div>
+      <div id="qs-ideation"></div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-badge badge-decision">3</div>
+        <div class="section-title">Décision et ressources</div>
+        <div class="section-count">8 questions</div>
+      </div>
+      <div id="qs-decision"></div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-badge badge-projet">4</div>
+        <div class="section-title">Gestion de projet</div>
+        <div class="section-count">8 questions</div>
+      </div>
+      <div id="qs-projet"></div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-badge badge-valeur">5</div>
+        <div class="section-title">Création de valeur</div>
+        <div class="section-count">10 questions</div>
+      </div>
+      <div id="qs-valeur"></div>
+    </div>
+
+    <button class="submit-btn" id="submit-btn" disabled onclick="submitForm()">
+      Obtenir mon diagnostic →
+    </button>
+
+  </div><!-- /form-view -->
+
+  <div id="success-view" style="display:none;">
+    <div class="success-wrap">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" stroke="#27500A" stroke-width="1.5"/>
+          <path d="M8 12l3 3 5-5" stroke="#27500A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2>Diagnostic complété !</h2>
+      <p class="sent-to">Résultats calculés pour <strong id="result-company"></strong> — à envoyer à <strong id="result-email"></strong></p>
+
+      <div class="score-grid" id="score-grid"></div>
+
+      <p class="global-score-line">Score global d'innovation&nbsp;: <strong id="global-score"></strong></p>
+
+      <button class="restart-btn" onclick="restartForm()">↩ Recommencer le diagnostic</button>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    Auto-diagnostic Innovation · Tous droits réservés · Résultats confidentiels
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+const DATA = {
+  culture: {
+    label: "Culture & Stratégie",
+    questions: [
+      { q: "Avez-vous défini une stratégie à 3 / 5 ans ?", a: ["Oui", "Non"], pos: 0 },
+      { q: "Avez-vous communiqué en interne sur cette stratégie ?", a: ["Oui", "Non"], pos: 0 },
+      { q: "Avez-vous défini une instance de pilotage de la stratégie ?", a: ["Oui", "Non"], pos: 0 },
+      { q: "Cette stratégie inclut-elle des axes R&D ou innovation ?", a: ["Oui", "Non"], pos: 0 },
+      { q: "Cette stratégie est-elle pilotée par des indicateurs ?", a: ["Oui", "Non"], pos: 0 },
+      { q: "Votre turn-over a-t-il un impact positif ou négatif sur votre organisation ?", a: ["Positif", "Négatif"], pos: 0 },
+      { q: "Avez-vous un système de valorisation des idées émises par vos collaborateurs ?", a: ["Oui", "Non"], pos: 0 },
+      { q: "Quelle est votre attitude face à l'incertitude dans les projets ?", a: ["Nous intégrons une part de projets risqués", "Nous évitons les projets risqués"], pos: 0 },
+      { q: "Comment qualifieriez-vous l'agilité de votre entreprise ?", a: ["Nous modifions souvent nos pratiques pour gagner en efficacité", "Nous préférons nous appuyer sur des processus robustes et validés"], pos: 0 },
+      { q: "Quelle est votre attitude face à l'erreur ?", a: ["Les erreurs sont acceptées, analysées et peuvent faire évoluer nos pratiques", "Les processus établis nous permettent de ne pas faire d'erreur"], pos: 0 },
+      { q: "Avez-vous déjà mené des projets innovants qui ne soient une réponse directe à une demande client ?", a: ["Oui", "Non"], pos: 0 },
+      { q: "Avez-vous identifié des personnes clés dans votre processus d'innovation ?", a: ["Oui", "Non"], pos: 0 },
+    ]
+  },
+  ideation: {
+    label: "Idéation",
+    questions: [
+      { q: "Dans quelle mesure vos clients sont-ils impliqués dans la création de nouveaux produits / services ?", a: ["Nous avons identifié des lead-users et les impliquons en amont des projets", "Nous utilisons les retours clients pour améliorer nos produits et services"], pos: 0 },
+      { q: "Dans quelle mesure vos fournisseurs sont-ils impliqués dans la création de nouveaux produits / services ?", a: ["Nous impliquons nos fournisseurs dans des projets de co-développement", "Nous faisons une veille des nouveautés proposées par nos fournisseurs"], pos: 0 },
+      { q: "Réalisez-vous une veille stratégique ?", a: ["Oui", "Non"], pos: 0 },
+      { q: "Qui est à l'origine de vos projets d'innovation ?", a: ["Notre écosystème d'innovation est régulièrement mobilisé", "Les membres du comité de direction ou le dirigeant"], pos: 0 },
+      { q: "Comment qualifieriez-vous la créativité dans votre organisation ?", a: ["Bouillonnante", "En sommeil / Limitée"], pos: 0 },
+      { q: "Tenez-vous à jour une liste de proposition de projets en attente de lancement ?", a: ["Oui", "Non"], pos: 0 },
+      { q: "Avez-vous organisé un évènement visant à générer de nouvelles idées de produits ou services dans les 6 derniers mois ?", a: ["Oui", "Non"], pos: 0 },
+    ]
+  },
+  decision: {
+    label: "Décision & Ressources",
+    questions: [
+      { q: "Avez-vous une instance chargée de décider quels projets lancer / arrêter ?", a: ["Oui", "Non"], pos: 0 },
+      { q: "Vérifiez-vous que les nouveaux projets participent à l'atteinte d'un objectif stratégique ?", a: ["Oui", "Non"], pos: 0 },
+      { q: "Les critères RSE sont pris en compte dans la décision de lancer ou non un projet ?", a: ["Oui", "Non"], pos: 0 },
+      { q: "Gérez-vous des portefeuilles projets ?", a: ["Oui", "Non"], pos: 0 },
+      { q: "Avez-vous une liste exhaustive des projets ?", a: ["Oui", "Non"], pos: 0 },
+      { q: "Mobilisez-vous des ressources externes à l'entreprise (financement, compétences, brevets) ?", a: ["Oui", "Non"], pos: 0 },
+      { q: "Allouez-vous des ressources spécifiques et chiffrées à vos projets (€ / temps / équipements) ?", a: ["Oui", "Non"], pos: 0 },
+      { q: "Définissez-vous des objectifs à atteindre autres que la date de fin ?", a: ["Oui", "Non"], pos: 0 },
+    ]
+  },
+  projet: {
+    label: "Gestion de projet",
+    questions: [
+      { q: "Les projets ont une fiche de cadrage définissant le problème à résoudre, les objectifs, l'équipe projet et les spécifications principales.", a: ["Oui", "Non"], pos: 0 },
+      { q: "Un chef de projet est nommé pour chaque projet. Il a été formé à ce rôle.", a: ["Oui", "Non"], pos: 0 },
+      { q: "Les projets ont une planification intégrant des validations intermédiaires.", a: ["Oui", "Non"], pos: 0 },
+      { q: "Il existe des revues de projet périodiques.", a: ["Oui", "Non"], pos: 0 },
+      { q: "Les essais / tests / prototypes réalisés sont formalisés.", a: ["Oui", "Non"], pos: 0 },
+      { q: "Comment sont gérés les problèmes rencontrés en cours de projet ?", a: ["L'équipe mobilise des outils de résolution de problème et trace les solutions explorées", "L'absence de méthodologie entraîne des tensions entre les services et des retards"], pos: 0 },
+      { q: "L'entreprise communique largement en interne sur l'avancée et les difficultés des projets en cours.", a: ["Oui", "Non"], pos: 0 },
+      { q: "Les futurs utilisateurs sont intégrés dans les validations de prototypes.", a: ["Oui", "Non"], pos: 0 },
+    ]
+  },
+  valeur: {
+    label: "Création de valeur",
+    questions: [
+      { q: "Les projets atteignent globalement leurs objectifs (délai, qualitatifs, quantitatifs).", a: ["Oui", "Non"], pos: 0 },
+      { q: "Une analyse d'impacts environnementaux et sociaux des projets est réalisée.", a: ["Oui", "Non"], pos: 0 },
+      { q: "L'entreprise réalise un retour d'expérience à la fin des projets dans une démarche d'amélioration continue.", a: ["Oui", "Non"], pos: 0 },
+      { q: "Un suivi des objectifs commerciaux est réalisé sur une période longue.", a: ["Oui", "Non"], pos: 0 },
+      { q: "Il existe une politique interne de propriété intellectuelle.", a: ["Oui", "Non"], pos: 0 },
+      { q: "L'équipe projet est partie prenante de l'industrialisation et de la commercialisation du produit ou service développé.", a: ["Oui", "Non"], pos: 0 },
+      { q: "Les produits ou services développés sont réellement innovants.", a: ["Oui", "Non"], pos: 0 },
+      { q: "Il existe des indicateurs de performance du processus d'innovation.", a: ["Oui", "Non"], pos: 0 },
+      { q: "Les résultats obtenus sont partagés en interne et en externe.", a: ["Oui", "Non"], pos: 0 },
+      { q: "Les connaissances acquises sont formalisées et partagées hors de l'équipe projet.", a: ["Oui", "Non"], pos: 0 },
+    ]
+  }
+};
+
+const answers = {};
+const TOTAL = 46;
+
+function renderQuestions(sectionKey, containerId) {
+  const container = document.getElementById(containerId);
+  const section = DATA[sectionKey];
+  container.innerHTML = section.questions.map((item, i) => {
+    const qid = sectionKey + '-' + i;
+    return `<div class="question-item">
+      <div class="question-text"><span class="question-num">${i+1}</span>${item.q}</div>
+      <div class="options-row">
+        ${item.a.map((opt, j) => `<button class="option-btn" onclick="selectAnswer('${qid}', ${j}, '${sectionKey}', this)">${opt}</button>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function selectAnswer(qid, idx, section, btn) {
+  btn.closest('.options-row').querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  answers[qid] = idx;
+  updateProgress();
+}
+
+function identityFilled() {
+  return (
+    document.getElementById('f-company').value.trim() !== '' &&
+    document.getElementById('f-name').value.trim() !== '' &&
+    document.getElementById('f-email').value.trim() !== ''
+  );
+}
+
+function updateProgress() {
+  const count = Object.keys(answers).length;
+  document.getElementById('progress-label').textContent = count + ' / ' + TOTAL + ' réponses';
+  document.getElementById('progress-fill').style.width = Math.round(count / TOTAL * 100) + '%';
+  document.getElementById('submit-btn').disabled = !(count === TOTAL && identityFilled());
+}
+
+['f-company','f-name','f-role','f-email'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updateProgress);
+});
+
+function submitForm() {
+  const sections = ['culture','ideation','decision','projet','valeur'];
+  const scores = {};
+  sections.forEach(sec => {
+    let pos = 0;
+    const total = DATA[sec].questions.length;
+    DATA[sec].questions.forEach((q, i) => {
+      if (answers[sec + '-' + i] === q.pos) pos++;
+    });
+    scores[sec] = { pos, total, pct: Math.round(pos / total * 100) };
+  });
+  const totalPos = Object.values(scores).reduce((s, v) => s + v.pos, 0);
+  const globalPct = Math.round(totalPos / TOTAL * 100);
+
+  document.getElementById('result-company').textContent = document.getElementById('f-company').value;
+  document.getElementById('result-email').textContent = document.getElementById('f-email').value;
+
+  const scoreColors = [
+    { bg: '#F4C0D1', text: '#72243E' },
+    { bg: '#FAC775', text: '#633806' },
+    { bg: '#B5D4F4', text: '#0C447C' },
+    { bg: '#9FE1CB', text: '#085041' },
+    { bg: '#CECBF6', text: '#3C3489' },
+  ];
+
+  document.getElementById('score-grid').innerHTML = sections.map((sec, i) => {
+    const s = scores[sec];
+    const pct = s.pct;
+    let bg, color;
+    if (pct >= 70) { bg = '#EAF3DE'; color = '#173404'; }
+    else if (pct >= 40) { bg = '#FAEEDA'; color = '#633806'; }
+    else { bg = '#FCEBEB'; color = '#501313'; }
+    const shortLabel = DATA[sec].label.replace('& ', '&\n');
+    return `<div class="score-card" style="background:${bg};">
+      <div class="sc-label" style="color:${color};">${DATA[sec].label}</div>
+      <div class="sc-val" style="color:${color};">${pct}%</div>
+    </div>`;
+  }).join('');
+
+  const gColor = globalPct >= 70 ? '#3B6D11' : globalPct >= 40 ? '#BA7517' : '#E24B4A';
+  const gEl = document.getElementById('global-score');
+  gEl.textContent = globalPct + '%';
+  gEl.style.color = gColor;
+
+  document.getElementById('form-view').style.display = 'none';
+  document.getElementById('success-view').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function restartForm() {
+  Object.keys(answers).forEach(k => delete answers[k]);
+  document.getElementById('f-company').value = '';
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-role').value = '';
+  document.getElementById('f-email').value = '';
+  ['qs-culture','qs-ideation','qs-decision','qs-projet','qs-valeur'].forEach(id => {
+    document.getElementById(id).querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  });
+  updateProgress();
+  document.getElementById('success-view').style.display = 'none';
+  document.getElementById('form-view').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+renderQuestions('culture', 'qs-culture');
+renderQuestions('ideation', 'qs-ideation');
+renderQuestions('decision', 'qs-decision');
+renderQuestions('projet', 'qs-projet');
+renderQuestions('valeur', 'qs-valeur');
+</script>
+</body>
+</html>
